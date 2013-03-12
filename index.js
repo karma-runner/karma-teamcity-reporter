@@ -18,7 +18,11 @@ var escTCString = function (message) {
 };
 
 var getTestName = function (result) {
-  return result.slice(1).join(' ');
+  return result.description;
+};
+
+var getSuiteName = function(result) {
+  return result.suite.join(' ');
 };
 
 
@@ -37,7 +41,7 @@ var TeamcityReporter = function(baseReporterDecorator) {
 
   this.specSuccess = function(browser, result) {
     var browseResult = this.checkNewSuit(browser, result);
-    var testName = getTestName(result.suite);
+    var testName = getTestName(result);
 
     browseResult.log.push(util.format(this.TEST_START, escTCString(testName)));
     browseResult.log.push(util.format(this.TEST_END,
@@ -46,7 +50,7 @@ var TeamcityReporter = function(baseReporterDecorator) {
 
   this.specFailure = function(browser, result) {
     var browseResult = this.checkNewSuit(browser, result);
-    var testName = getTestName(result.suite);
+    var testName = getTestName(result);
 
     browseResult.log.push(util.format(this.TEST_START, escTCString(testName)));
     browseResult.log.push(util.format(this.TEST_FAILED, escTCString(testName),
@@ -57,22 +61,23 @@ var TeamcityReporter = function(baseReporterDecorator) {
 
   this.specSkipped = function(browser, result) {
     var browseResult = this.checkNewSuit(browser, result);
-    var testName = getTestName(result.suite);
+    var testName = getTestName(result);
 
     browseResult.log.push(util.format(this.TEST_IGNORED, escTCString(testName)));
   };
 
   this.checkNewSuit = function(browser, result) {
     var browserResult = this.checkNewBrowser(browser);
-    var suiteExists = browserResult.suits.indexOf(result.suite[0]) !== -1;
+    var suiteName = getSuiteName(result);
+    var suiteExists = browserResult.suits.indexOf(suiteName) !== -1;
 
     if(!suiteExists) {
       if(browserResult.suits.length > 0) {
         browserResult.log.push(util.format(this.SUITE_END,
           escTCString(browserResult.suits[browserResult.suits.length - 1])));
       }
-      browserResult.suits.push(result.suite[0]);
-      browserResult.log.push(util.format(this.SUITE_START, escTCString(result.suite[0])));
+      browserResult.suits.push(suiteName);
+      browserResult.log.push(util.format(this.SUITE_START, escTCString(suiteName)));
     }
     return browserResult;
   };
@@ -80,6 +85,7 @@ var TeamcityReporter = function(baseReporterDecorator) {
   this.checkNewBrowser = function(browser) {
     if(!this.browserResults[browser.id]) {
       this.browserResults[browser.id] = {
+        name: browser.name,
         log : [],
         suits : []
       };
@@ -90,15 +96,15 @@ var TeamcityReporter = function(baseReporterDecorator) {
   this.onRunComplete = function(browsers, results) {
     var self = this;
 
-    Object.keys(this.browserResults).forEach(function(key) {
-      var browserResult = self.browserResults[key];
+    Object.keys(this.browserResults).forEach(function(browserId) {
+      var browserResult = self.browserResults[browserId];
       if(browserResult.suits.length > 0) {
         browserResult.log.push(util.format(self.SUITE_END,
           escTCString(browserResult.suits[browserResult.suits.length - 1])));
       }
-      self.write(self.BROWSER_START, key);
+      self.write(self.BROWSER_START, browserResult.name);
       self.write(browserResult.log.join('\n'));
-      self.write(self.BROWSER_END, key);
+      self.write(self.BROWSER_END, browserResult.name);
     });
 
     this.writeCommonMsg(browsers.map(this.renderBrowser).join('\n') + '\n');
