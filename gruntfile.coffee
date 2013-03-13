@@ -10,7 +10,7 @@ module.exports = (grunt) ->
         reporter: 'dot'
       unit:
         src: [
-          'test/*.js'
+          'test/*.coffee'
         ]
 
 
