@@ -4,7 +4,7 @@
   "description": "A Testacular plugin. Report results for Teamcity CI.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,9 @@
   ],
   "author": "Eldar Djafarov<djkojb@gmail.com>",
   "dependencies": {},
+  "devDependencies": {
+    "mocha": "*"
+  },
   "peerDependencies": {
     "testacular": "~0.7"
   },

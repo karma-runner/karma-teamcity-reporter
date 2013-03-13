@@ -1,4 +1,4 @@
-# testacular-teamcity-reporter
+# testacular-teamcity-reporter [![Build Status](https://secure.travis-ci.org/testacular/testacular-teamcity-reporter.png?branch=master)](https://travis-ci.org/testacular/testacular-teamcity-reporter)
 
 > Reporter for Teamcity CI.
 
