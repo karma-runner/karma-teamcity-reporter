@@ -18,10 +18,12 @@ var escapeMessage = function (message) {
 };
 
 var formatMessage = function() {
-  for (var i = arguments.length - 1; i > 0; i--) {
-    arguments[i] = escapeMessage(arguments[i]);
-  };
-  return util.format.apply(null, arguments) + '\n';
+  var args = Array.prototype.slice.call(arguments);
+
+  for (var i = args.length - 1; i > 0; i--) {
+    args[i] = escapeMessage(args[i]);
+  }
+  return util.format.apply(null, args) + '\n';
 };
 
 
@@ -73,7 +75,7 @@ var TeamcityReporter = function(baseReporterDecorator) {
     log.push(formatMessage(this.TEST_IGNORED, testName));
   };
 
-  this.onRunComplete = function(browsers, results) {
+  this.onRunComplete = function() {
     var self = this;
 
     Object.keys(this.browserResults).forEach(function(browserId) {
