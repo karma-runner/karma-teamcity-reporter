@@ -1,6 +1,9 @@
 .jshintrc
 .npmignore
 .travis.yml
+.gitignore
+.editorconfig
+.gitattributes
 
 gruntfile.coffee
 test
