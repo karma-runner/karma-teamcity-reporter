@@ -1,0 +1,7 @@
+.jshintrc
+.npmignore
+.travis.yml
+
+gruntfile.coffee
+test
+
