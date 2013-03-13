@@ -18,7 +18,10 @@
   "author": "Eldar Djafarov<djkojb@gmail.com>",
   "dependencies": {},
   "devDependencies": {
-    "mocha": "*"
+    "mocha": "*",
+    "chai": "*",
+    "sinon": "*",
+    "sinon-chai": "*"
   },
   "peerDependencies": {
     "testacular": "~0.7"
