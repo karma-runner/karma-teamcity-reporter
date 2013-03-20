@@ -1,17 +1,17 @@
 {
-  "name": "testacular-teamcity-reporter",
+  "name": "karma-teamcity-reporter",
   "version": "0.0.1",
-  "description": "A Testacular plugin. Report results for Teamcity CI.",
+  "description": "A Karma plugin. Report results for Teamcity CI.",
   "main": "index.js",
   "scripts": {
     "test": "mocha"
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/testacular/testacular-teamcity-reporter.git"
+    "url": "git://github.com/karma-runner/karma-teamcity-reporter.git"
   },
   "keywords": [
-    "testacular-plugin",
+    "karma-plugin",
     "reporter",
     "teamcity"
   ],
@@ -27,7 +27,7 @@
     "grunt-contrib-jshint": "~0.2.0"
   },
   "peerDependencies": {
-    "testacular": "~0.7"
+    "karma": "~0.9"
   },
   "license": "MIT"
 }
