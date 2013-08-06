@@ -27,7 +27,7 @@
     "grunt-contrib-jshint": "~0.2.0"
   },
   "peerDependencies": {
-    "karma": "~0.9"
+    "karma": ">=0.9"
   },
   "license": "MIT"
 }
