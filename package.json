@@ -24,7 +24,10 @@
     "sinon-chai": "*",
     "grunt-simple-mocha": "~0.3.2",
     "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.2.0"
+    "grunt-contrib-jshint": "~0.2.0",
+    "grunt-bump": "~0.0.11",
+    "grunt-npm": "~0.0.2",
+    "grunt-auto-release": "~0.0.4"
   },
   "peerDependencies": {
     "karma": ">=0.9"
