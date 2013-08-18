@@ -32,5 +32,10 @@
   "peerDependencies": {
     "karma": ">=0.9"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "contributors": [
+    "Vojta Jina <vojta.jina@gmail.com>",
+    "Vitaly Domnikov <dotcypress@gmail.com>",
+    "Eldar Djafarov <djkojb@gmail.com>"
+  ]
 }
