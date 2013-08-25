@@ -23,14 +23,16 @@ describe 'TeamCity reporter', ->
     done()
 
   it 'should produce messages without tests', (done) ->
-    reporter.onRunStart [mosaic]
+    reporter.onRunStart []
+    reporter.onBrowserStart mosaic
     reporter.onRunComplete []
     reporter.write.should.have.been.calledWith '##teamcity[browserStart name=\'Mosaic\']\n'
     reporter.write.should.have.been.calledWith '##teamcity[browserEnd name=\'Mosaic\']\n'
     done()
 
   it 'should produce messages with one test', (done) ->
-    reporter.onRunStart [mosaic]
+    reporter.onRunStart []
+    reporter.onBrowserStart mosaic
     reporter.specSuccess mosaic, {description: 'SampleTest', time: 2, suite: ['Suite 1']}
     reporter.onRunComplete []
     reporter.write.should.have.been.calledWith('##teamcity[browserStart name=\'Mosaic\']\n')

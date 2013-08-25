@@ -39,16 +39,16 @@ var TeamcityReporter = function(baseReporterDecorator) {
   this.BROWSER_START = '##teamcity[browserStart name=\'%s\']';
   this.BROWSER_END   = '##teamcity[browserEnd name=\'%s\']';
 
-  this.onRunStart = function(browsers) {
-    var self = this;
-    this.browserResults = {};
-    browsers.forEach(function(browser) {
-      self.browserResults[browser.id] = {
-        name: browser.name,
-        log : [],
-        lastSuite : null
-      };
-    });
+  this.onRunStart = function() {
+    this.browserResults = Object.create(null);
+  };
+
+  this.onBrowserStart = function(browser) {
+    this.browserResults[browser.id] = {
+      name: browser.name,
+      log : [],
+      lastSuite : null
+    };
   };
 
   this.specSuccess = function(browser, result) {
