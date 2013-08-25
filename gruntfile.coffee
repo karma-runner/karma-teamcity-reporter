@@ -31,6 +31,7 @@ module.exports = (grunt) ->
   grunt.loadNpmTasks 'grunt-bump'
   grunt.loadNpmTasks 'grunt-auto-release'
 
+  grunt.registerTask 'test', ['simplemocha']
   grunt.registerTask 'default', ['jshint', 'simplemocha']
   grunt.registerTask 'release', 'Bump the version and publish to NPM.', (type) ->
     grunt.task.run [
