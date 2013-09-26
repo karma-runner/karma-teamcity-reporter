@@ -27,8 +27,8 @@ describe('TeamCity reporter', function(){
   it('should produce messages without tests', function(done){
     reporter.onRunStart([mosaic]);
     reporter.onRunComplete([]);
-    reporter.write.should.have.been.calledWith('##teamcity[browserStart name=\'Mosaic\']\n');
-    reporter.write.should.have.been.calledWith('##teamcity[browserEnd name=\'Mosaic\']\n');
+    reporter.write.should.have.been.calledWith('##teamcity[blockOpened name=\'Mosaic\']\n');
+    reporter.write.should.have.been.calledWith('##teamcity[blockClosed name=\'Mosaic\']\n');
     done();
   });
 
@@ -36,12 +36,12 @@ describe('TeamCity reporter', function(){
     reporter.onRunStart([mosaic]);
     reporter.specSuccess(mosaic, {description: 'SampleTest', time: 2, suite: ['Suite 1']});
     reporter.onRunComplete([]);
-    reporter.write.should.have.been.calledWith('##teamcity[browserStart name=\'Mosaic\']\n');
-    reporter.write.should.have.been.calledWith('##teamcity[browserEnd name=\'Mosaic\']\n');
-    reporter.write.should.have.been.calledWith('##teamcity[testSuiteStarted name=\'Suite 1\']\n\
+    reporter.write.should.have.been.calledWith('##teamcity[blockOpened name=\'Mosaic\']\n');
+    reporter.write.should.have.been.calledWith('##teamcity[blockClosed name=\'Mosaic\']\n');
+    reporter.write.should.have.been.calledWith('##teamcity[testSuiteStarted name=\'Mosaic-Suite 1\']\n\
 ##teamcity[testStarted name=\'SampleTest\']\n\
 ##teamcity[testFinished name=\'SampleTest\' duration=\'2\']\n\
-##teamcity[testSuiteFinished name=\'Suite 1\']\n');
+##teamcity[testSuiteFinished name=\'Mosaic-Suite 1\']\n');
     done();
   });
 
