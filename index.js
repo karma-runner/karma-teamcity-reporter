@@ -36,8 +36,8 @@ var TeamcityReporter = function(baseReporterDecorator) {
   this.TEST_START    = '##teamcity[testStarted name=\'%s\']';
   this.TEST_FAILED   = '##teamcity[testFailed name=\'%s\' message=\'FAILED\' details=\'%s\']';
   this.TEST_END      = '##teamcity[testFinished name=\'%s\' duration=\'%s\']';
-  this.BROWSER_START = '##teamcity[browserStart name=\'%s\']';
-  this.BROWSER_END   = '##teamcity[browserEnd name=\'%s\']';
+  this.BROWSER_START = '##teamcity[blockOpened name=\'%s\']';
+  this.BROWSER_END   = '##teamcity[blockClosed name=\'%s\']';
 
   this.onRunStart = function(browsers) {
     var self = this;
