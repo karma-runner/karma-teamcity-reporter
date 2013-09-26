@@ -92,7 +92,7 @@ var TeamcityReporter = function(baseReporterDecorator) {
 
   this.getLog = function(browser, result) {
     var browserResult = this.browserResults[browser.id];
-    var suiteName = result.suite.join(' ');
+    var suiteName = browser.name.concat('-',result.suite.join(' '));
     var log = browserResult.log;
     if(browserResult.lastSuite !== suiteName) {
       if(browserResult.lastSuite) {
