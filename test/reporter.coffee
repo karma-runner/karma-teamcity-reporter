@@ -36,10 +36,10 @@ describe 'TeamCity reporter', ->
     reporter.write.should.have.been.calledWith('##teamcity[blockOpened name=\'Mosaic\']\n')
     reporter.write.should.have.been.calledWith('##teamcity[blockClosed name=\'Mosaic\']\n')
     reporter.write.should.have.been.calledWith """
-      ##teamcity[testSuiteStarted name=\'Mosaic-Suite 1\']
+      ##teamcity[testSuiteStarted name=\'Suite 1.Mosaic\']
       ##teamcity[testStarted name=\'SampleTest\']
       ##teamcity[testFinished name=\'SampleTest\' duration=\'2\']
-      ##teamcity[testSuiteFinished name=\'Mosaic-Suite 1\']
+      ##teamcity[testSuiteFinished name=\'Suite 1.Mosaic\']
 
     """
     done()

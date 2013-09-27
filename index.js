@@ -36,8 +36,8 @@ var TeamcityReporter = function(baseReporterDecorator) {
   this.TEST_START    = '##teamcity[testStarted name=\'%s\']';
   this.TEST_FAILED   = '##teamcity[testFailed name=\'%s\' message=\'FAILED\' details=\'%s\']';
   this.TEST_END      = '##teamcity[testFinished name=\'%s\' duration=\'%s\']';
-  this.BROWSER_START = '##teamcity[blockOpened name=\'%s\']';
-  this.BROWSER_END   = '##teamcity[blockClosed name=\'%s\']';
+  this.BLOCK_OPENED  = '##teamcity[blockOpened name=\'%s\']';
+  this.BLOCK_CLOSED  = '##teamcity[blockClosed name=\'%s\']';
 
   this.onRunStart = function(browsers) {
     var self = this;
@@ -84,15 +84,21 @@ var TeamcityReporter = function(baseReporterDecorator) {
       if(browserResult.lastSuite) {
         log.push(formatMessage(self.SUITE_END, browserResult.lastSuite));
       }
-      self.write(formatMessage(self.BROWSER_START, browserResult.name));
+      self.write(formatMessage(self.BLOCK_OPENED, browserResult.name));
       self.write(log.join(''));
-      self.write(formatMessage(self.BROWSER_END, browserResult.name));
+      self.write(formatMessage(self.BLOCK_CLOSED, browserResult.name));
     });
   };
 
   this.getLog = function(browser, result) {
     var browserResult = this.browserResults[browser.id];
-    var suiteName = browser.name.concat('-',result.suite.join(' '));
+    var suiteName = browser.name;
+    var moduleName = result.suite.join(' ');
+
+    if(moduleName) {
+      suiteName = moduleName.concat('.', suiteName);
+    }
+
     var log = browserResult.log;
     if(browserResult.lastSuite !== suiteName) {
       if(browserResult.lastSuite) {

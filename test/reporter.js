@@ -38,10 +38,10 @@ describe('TeamCity reporter', function(){
     reporter.onRunComplete([]);
     reporter.write.should.have.been.calledWith('##teamcity[blockOpened name=\'Mosaic\']\n');
     reporter.write.should.have.been.calledWith('##teamcity[blockClosed name=\'Mosaic\']\n');
-    reporter.write.should.have.been.calledWith('##teamcity[testSuiteStarted name=\'Mosaic-Suite 1\']\n\
+    reporter.write.should.have.been.calledWith('##teamcity[testSuiteStarted name=\'Suite 1.Mosaic\']\n\
 ##teamcity[testStarted name=\'SampleTest\']\n\
 ##teamcity[testFinished name=\'SampleTest\' duration=\'2\']\n\
-##teamcity[testSuiteFinished name=\'Mosaic-Suite 1\']\n');
+##teamcity[testSuiteFinished name=\'Suite 1.Mosaic\']\n');
     done();
   });
 
