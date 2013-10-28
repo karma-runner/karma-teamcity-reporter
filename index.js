@@ -64,7 +64,7 @@ var TeamcityReporter = function(baseReporterDecorator) {
     var testName = result.description;
 
     log.push(formatMessage(this.TEST_START, testName));
-    log.push(formatMessage(this.TEST_FAILED, testName, JSON.stringify(result.log)));
+    log.push(formatMessage(this.TEST_FAILED, testName, result.log.join('\n\n')));
     log.push(formatMessage(this.TEST_END, testName, result.time));
   };
 
