@@ -25,21 +25,21 @@ describe 'TeamCity reporter', ->
   it 'should produce messages without tests', (done) ->
     reporter.onRunStart [mosaic]
     reporter.onRunComplete []
-    reporter.write.should.have.been.calledWith '##teamcity[browserStart name=\'Mosaic\']\n'
-    reporter.write.should.have.been.calledWith '##teamcity[browserEnd name=\'Mosaic\']\n'
+    reporter.write.should.have.been.calledWith '##teamcity[blockOpened name=\'Mosaic\']\n'
+    reporter.write.should.have.been.calledWith '##teamcity[blockClosed name=\'Mosaic\']\n'
     done()
 
   it 'should produce messages with one test', (done) ->
     reporter.onRunStart [mosaic]
     reporter.specSuccess mosaic, {description: 'SampleTest', time: 2, suite: ['Suite 1']}
     reporter.onRunComplete []
-    reporter.write.should.have.been.calledWith('##teamcity[browserStart name=\'Mosaic\']\n')
-    reporter.write.should.have.been.calledWith('##teamcity[browserEnd name=\'Mosaic\']\n')
+    reporter.write.should.have.been.calledWith('##teamcity[blockOpened name=\'Mosaic\']\n')
+    reporter.write.should.have.been.calledWith('##teamcity[blockClosed name=\'Mosaic\']\n')
     reporter.write.should.have.been.calledWith """
-      ##teamcity[testSuiteStarted name=\'Suite 1\']
+      ##teamcity[testSuiteStarted name=\'Suite 1.Mosaic\']
       ##teamcity[testStarted name=\'SampleTest\']
       ##teamcity[testFinished name=\'SampleTest\' duration=\'2\']
-      ##teamcity[testSuiteFinished name=\'Suite 1\']
+      ##teamcity[testSuiteFinished name=\'Suite 1.Mosaic\']
 
     """
     done()
