@@ -39,16 +39,16 @@ var TeamcityReporter = function(baseReporterDecorator) {
   this.BLOCK_OPENED  = '##teamcity[blockOpened name=\'%s\']';
   this.BLOCK_CLOSED  = '##teamcity[blockClosed name=\'%s\']';
 
-  this.onRunStart = function(browsers) {
-    var self = this;
+  this.onRunStart = function() {
     this.browserResults = {};
-    browsers.forEach(function(browser) {
-      self.browserResults[browser.id] = {
-        name: browser.name,
-        log : [],
-        lastSuite : null
-      };
-    });
+  };
+
+  this.onBrowserStart = function(browser){
+    this.browserResults[browser.id] = {
+      name: browser.name,
+      log : [],
+      lastSuite : null
+    };
   };
 
   this.specSuccess = function(browser, result) {
