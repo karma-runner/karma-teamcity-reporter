@@ -39,16 +39,23 @@ var TeamcityReporter = function(baseReporterDecorator) {
   this.BLOCK_OPENED  = '##teamcity[blockOpened name=\'%s\']';
   this.BLOCK_CLOSED  = '##teamcity[blockClosed name=\'%s\']';
 
+  var reporter = this;
+  var initializeBrowser = function(browser) {
+    reporter.browserResults[browser.id] = {
+      name: browser.name,
+      log : [],
+      lastSuite : null
+    };
+  };
+
   this.onRunStart = function(browsers) {
-    var self = this;
     this.browserResults = {};
-    browsers.forEach(function(browser) {
-      self.browserResults[browser.id] = {
-        name: browser.name,
-        log : [],
-        lastSuite : null
-      };
-    });
+    // Support Karma 0.10 (TODO: remove)
+    browsers.forEach(initializeBrowser);
+  };
+
+  this.onBrowserStart = function(browser){
+    initializeBrowser(browser);
   };
 
   this.specSuccess = function(browser, result) {
