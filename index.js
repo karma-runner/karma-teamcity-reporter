@@ -45,12 +45,12 @@ var TeamcityReporter = function(baseReporterDecorator) {
       name: browser.name,
       log : [],
       lastSuite : null
-    };    
+    };
   };
 
   this.onRunStart = function(browsers) {
     this.browserResults = {};
-    // TODO(jdd): remove once we don't care about Karma 0.10
+    // Support Karma 0.10 (TODO: remove)
     browsers.forEach(initializeBrowser);
   };
 
