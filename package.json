@@ -1,6 +1,6 @@
 {
   "name": "karma-teamcity-reporter",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "A Karma plugin. Report results for Teamcity CI.",
   "main": "index.js",
   "scripts": {
@@ -30,7 +30,7 @@
     "grunt-auto-release": "~0.0.4"
   },
   "peerDependencies": {
-    "karma": ">=0.9"
+    "karma": ">=0.10.10"
   },
   "license": "MIT",
   "contributors": [
@@ -39,6 +39,7 @@
     "Vitaly Domnikov <dotcypress@gmail.com>",
     "noresjo <noresjo@gmail.com>",
     "Niklas <noresjo@gmail.com>",
-    "mob <mob@mikeobrien.net>"
+    "mob <mob@mikeobrien.net>",
+    "Vitaliy Zakharov <kilativv@gmail.com>"
   ]
 }
