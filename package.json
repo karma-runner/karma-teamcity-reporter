@@ -30,7 +30,7 @@
     "grunt-auto-release": "~0.0.4"
   },
   "peerDependencies": {
-    "karma": ">=0.9"
+    "karma": ">=0.10.10"
   },
   "license": "MIT",
   "contributors": [
@@ -41,6 +41,7 @@
     "Justin DuJardin <justin.dujardin@sococo.com>",
     "Justin DuJardin <justin@dujardinconsulting.com>",
     "Niklas <noresjo@gmail.com>",
-    "mob <mob@mikeobrien.net>"
+    "mob <mob@mikeobrien.net>",
+    "Vitaliy Zakharov <kilativv@gmail.com>"
   ]
 }
