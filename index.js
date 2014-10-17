@@ -50,8 +50,6 @@ var TeamcityReporter = function(baseReporterDecorator) {
 
   this.onRunStart = function(browsers) {
     this.browserResults = {};
-    // Support Karma 0.10 (TODO: remove)
-    browsers.forEach(initializeBrowser);
   };
 
   this.onBrowserStart = function(browser){
@@ -65,13 +63,13 @@ var TeamcityReporter = function(baseReporterDecorator) {
     log.push(formatMessage(this.TEST_START, testName));
     log.push(formatMessage(this.TEST_END, testName, result.time));
   };
-
+ 
   this.specFailure = function(browser, result) {
     var log = this.getLog(browser, result);
     var testName = result.description;
 
     log.push(formatMessage(this.TEST_START, testName));
-    log.push(formatMessage(this.TEST_FAILED, testName, result.log.join('\n\n')));
+    log.push(formatMessage(this.TEST_FAILED, testName,  JSON.stringify(result.log)));
     log.push(formatMessage(this.TEST_END, testName, result.time));
   };
 
