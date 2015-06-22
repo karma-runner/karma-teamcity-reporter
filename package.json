@@ -4,7 +4,7 @@
   "description": "A Karma plugin. Report results for Teamcity CI.",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "test": "grunt"
   },
   "repository": {
     "type": "git",
@@ -18,16 +18,23 @@
   "author": "Eldar Djafarov<djkojb@gmail.com>",
   "dependencies": {},
   "devDependencies": {
-    "mocha": "*",
     "chai": "*",
+    "eslint": "^0.23.0",
+    "eslint-config-standard": "^3.3.0",
+    "grunt": "^0.4.1",
+    "grunt-bump": "^0.3.1",
+    "grunt-conventional-changelog": "^1.2.2",
+    "grunt-eslint": "^15.0.0",
+    "grunt-karma": "^0.11.1",
+    "grunt-npm": "^0.0.2",
+    "grunt-simple-mocha": "^0.4",
+    "karma": "^0.12.36",
+    "karma-firefox-launcher": "^0.1.6",
+    "karma-mocha": "^0.2.0",
+    "load-grunt-tasks": "^3.2.0",
+    "mocha": "*",
     "sinon": "*",
-    "sinon-chai": "*",
-    "grunt-simple-mocha": "~0.4",
-    "grunt": "~0.4.1",
-    "grunt-contrib-jshint": "~0.2.0",
-    "grunt-bump": "~0.0.11",
-    "grunt-npm": "~0.0.2",
-    "grunt-auto-release": "~0.0.4"
+    "sinon-chai": "*"
   },
   "peerDependencies": {
     "karma": ">=0.9"
