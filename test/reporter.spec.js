@@ -15,25 +15,26 @@ describe('TeamCity reporter', function () {
     })
   })
 
-  it('should not produce messages without browsers', function () {
+  it('should produce 2 standard messages without browsers', function () {
     reporter.onRunStart([])
     reporter.onRunComplete([])
-    expect(reporter.write).to.not.have.been.called
+    expect(reporter.write).to.have.been.calledWith("##teamcity[blockOpened name='JavaScript Unit Tests']\n")
+    expect(reporter.write).to.have.been.calledWith("##teamcity[blockClosed name='JavaScript Unit Tests']\n")
   })
 
-  it('should produce messages without tests', function () {
+  it('should produce 2 standard messages without tests', function () {
     reporter.onRunStart([mosaic])
     reporter.onRunComplete([])
-    expect(reporter.write).to.have.been.calledWith("##teamcity[blockOpened name='Mosaic']\n")
-    expect(reporter.write).to.have.been.calledWith("##teamcity[blockClosed name='Mosaic']\n")
+    expect(reporter.write).to.have.been.calledWith("##teamcity[blockOpened name='JavaScript Unit Tests']\n")
+    expect(reporter.write).to.have.been.calledWith("##teamcity[blockClosed name='JavaScript Unit Tests']\n")
   })
 
   it('should produce messages with one test', function () {
     reporter.onRunStart([mosaic])
     reporter.specSuccess(mosaic, {description: 'SampleTest', time: 2, suite: ['Suite 1']})
     reporter.onRunComplete([])
-    expect(reporter.write).to.have.been.calledWith("##teamcity[blockOpened name='Mosaic']\n")
-    expect(reporter.write).to.have.been.calledWith("##teamcity[blockClosed name='Mosaic']\n")
+    expect(reporter.write).to.have.been.calledWith("##teamcity[blockOpened name='JavaScript Unit Tests']\n")
+    expect(reporter.write).to.have.been.calledWith("##teamcity[blockClosed name='JavaScript Unit Tests']\n")
     expect(reporter.write).to.have.been.calledWith([
       "##teamcity[testSuiteStarted name='Suite 1.Mosaic']",
       "##teamcity[testStarted name='SampleTest']",

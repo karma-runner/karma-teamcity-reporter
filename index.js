@@ -29,6 +29,7 @@ var formatMessage = function () {
 
 var TeamcityReporter = function (baseReporterDecorator) {
   baseReporterDecorator(this)
+  var self = this
 
   this.adapters = [fs.writeSync.bind(fs.writeSync, 1)]
 
@@ -51,6 +52,8 @@ var TeamcityReporter = function (baseReporterDecorator) {
   }
 
   this.onRunStart = function (browsers) {
+    this.write(formatMessage(this.BLOCK_OPENED, 'JavaScript Unit Tests'))
+
     this.browserResults = {}
     // Support Karma 0.10 (TODO: remove)
     browsers.forEach(initializeBrowser)
@@ -85,8 +88,6 @@ var TeamcityReporter = function (baseReporterDecorator) {
   }
 
   this.onRunComplete = function () {
-    var self = this
-
     Object.keys(this.browserResults).forEach(function (browserId) {
       var browserResult = self.browserResults[browserId]
       var log = browserResult.log
@@ -94,10 +95,9 @@ var TeamcityReporter = function (baseReporterDecorator) {
         log.push(formatMessage(self.SUITE_END, browserResult.lastSuite))
       }
 
-      self.write(formatMessage(self.BLOCK_OPENED, browserResult.name))
-      self.write(log.join(''))
-      self.write(formatMessage(self.BLOCK_CLOSED, browserResult.name))
+      self.flushLogs(browserResult)
     })
+    self.write(formatMessage(self.BLOCK_CLOSED, 'JavaScript Unit Tests'))
   }
 
   this.getLog = function (browser, result) {
@@ -114,10 +114,18 @@ var TeamcityReporter = function (baseReporterDecorator) {
       if (browserResult.lastSuite) {
         log.push(formatMessage(this.SUITE_END, browserResult.lastSuite))
       }
+      this.flushLogs(browserResult)
       browserResult.lastSuite = suiteName
       log.push(formatMessage(this.SUITE_START, suiteName))
     }
     return log
+  }
+
+  this.flushLogs = function (browserResult) {
+    self.write(browserResult.log.join(''))
+    while (browserResult.log.length > 0) {
+      browserResult.log.shift()
+    }
   }
 }
 
