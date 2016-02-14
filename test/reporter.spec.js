@@ -35,12 +35,17 @@ describe('TeamCity reporter', function () {
     reporter.onRunComplete([])
     expect(reporter.write).to.have.been.calledWith("##teamcity[blockOpened name='JavaScript Unit Tests']\n")
     expect(reporter.write).to.have.been.calledWith("##teamcity[blockClosed name='JavaScript Unit Tests']\n")
-    expect(reporter.write).to.have.been.calledWith([
-      "##teamcity[testSuiteStarted name='Suite 1.Mosaic']",
-      "##teamcity[testStarted name='SampleTest']",
-      "##teamcity[testFinished name='SampleTest' duration='2']",
-      "##teamcity[testSuiteFinished name='Suite 1.Mosaic']",
-      ''
-    ].join('\n'))
+    expect(reporter.write).to.have.been.calledWith(
+      "##teamcity[testSuiteStarted name='Suite 1.Mosaic']\n"
+    )
+    expect(reporter.write).to.have.been.calledWith(
+      "##teamcity[testStarted name='SampleTest']\n"
+    )
+    expect(reporter.write).to.have.been.calledWith(
+      "##teamcity[testFinished name='SampleTest' duration='2']\n"
+    )
+    expect(reporter.write).to.have.been.calledWith(
+      "##teamcity[testSuiteFinished name='Suite 1.Mosaic']\n"
+    )
   })
 })

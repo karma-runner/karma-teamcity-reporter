@@ -122,9 +122,12 @@ var TeamcityReporter = function (baseReporterDecorator) {
   }
 
   this.flushLogs = function (browserResult) {
-    self.write(browserResult.log.join(''))
     while (browserResult.log.length > 0) {
-      browserResult.log.shift()
+      var line = browserResult.log.shift()
+      self.write(line)
+      if (browserResult.log.length > 0) {
+        self.write(' ')
+      }
     }
   }
 }
