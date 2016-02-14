@@ -123,10 +123,10 @@ var TeamcityReporter = function (baseReporterDecorator) {
 
   this.flushLogs = function (browserResult) {
     while (browserResult.log.length > 0) {
-      var line = browserResult.log.shift();
-      self.write(line);
-      if (browserResult.log.length > 0){
-        self.write(' ');
+      var line = browserResult.log.shift()
+      self.write(line)
+      if (browserResult.log.length > 0) {
+        self.write(' ')
       }
     }
   }
