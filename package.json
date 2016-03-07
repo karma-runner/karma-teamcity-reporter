@@ -23,6 +23,7 @@
     "eslint-config-standard": "^5.1.0",
     "eslint-plugin-promise": "^1.1.0",
     "eslint-plugin-standard": "^1.1.0",
+    "ghooks": "^1.0.3",
     "grunt": "^0.4.1",
     "grunt-bump": "^0.7.0",
     "grunt-conventional-changelog": "^6.1.0",
@@ -36,7 +37,8 @@
     "load-grunt-tasks": "^3.2.0",
     "mocha": "*",
     "sinon": "*",
-    "sinon-chai": "*"
+    "sinon-chai": "*",
+    "validate-commit-msg": "^2.3.1"
   },
   "peerDependencies": {
     "karma": ">=0.9"
@@ -56,5 +58,11 @@
     "Niklas <noresjo@gmail.com>",
     "Justin DuJardin <justin@dujardinconsulting.com>",
     "mob <mob@mikeobrien.net>"
-  ]
+  ],
+  "config": {
+    "ghooks": {
+      "pre-commit": "grunt eslint",
+      "commit-msg": "validate-commit-msg"
+    }
+  }
 }
