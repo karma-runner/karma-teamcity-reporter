@@ -43,5 +43,4 @@ describe('TeamCity reporter', function () {
       ''
     ].join('\n'))
   })
-
 })
