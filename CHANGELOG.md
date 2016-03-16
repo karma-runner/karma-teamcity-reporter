@@ -1,3 +1,13 @@
+<a name="0.2.2"></a>
+## [0.2.2](https://github.com/karma-runner/karma-teamcity-reporter/compare/v0.2.1...v0.2.2) (2016-03-16)
+
+
+### Bug Fixes
+
+* Avoid large strings in memory ([5c8b8ad](https://github.com/karma-runner/karma-teamcity-reporter/commit/5c8b8ad)), closes [#33](https://github.com/karma-runner/karma-teamcity-reporter/issues/33)
+
+
+
 <a name"0.2.1"></a>
 ### 0.2.1 (2015-08-27)
 
