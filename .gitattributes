@@ -1,1 +1,2 @@
-* text=auto
+# EditorConfig requires LF end of lines, so git should checkout with LF
+* text eol=lf
