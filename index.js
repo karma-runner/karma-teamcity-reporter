@@ -8,7 +8,7 @@ var escapeMessage = function (message) {
 
   return message.toString()
     .replace(/\|/g, '||')
-    .replace(/\'/g, "|'")
+    .replace(/'/g, "|'")
     .replace(/\n/g, '|n')
     .replace(/\r/g, '|r')
     .replace(/\u0085/g, '|x')
