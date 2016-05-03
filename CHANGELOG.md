@@ -1,16 +1,9 @@
-<a name="2.0.0"></a>
-# [2.0.0](https://github.com/karma-runner/karma-teamcity-reporter/compare/v0.2.2...v2.0.0) (2016-05-03)
-
+<a name="1.0.0"></a>
+# [1.0.0](https://github.com/karma-runner/karma-teamcity-reporter/compare/v0.2.2...v1.0.0) (2016-05-03)
 
 ### Bug Fixes
 
 * **eslint:** fix eslint error([a4e73ad](https://github.com/karma-runner/karma-teamcity-reporter/commit/a4e73ad))
-
-
-
-<a name="1.0.0"></a>
-# [1.0.0](https://github.com/karma-runner/karma-teamcity-reporter/compare/v0.2.2...v1.0.0) (2016-05-03)
-
 
 
 <a name="0.2.2"></a>
