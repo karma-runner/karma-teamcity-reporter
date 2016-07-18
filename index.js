@@ -18,16 +18,20 @@ var escapeMessage = function (message) {
     .replace(/\]/g, '|]')
 }
 
-var hashString = function(s) {
-  var hash = 0, i, chr, len;
-  if (s === 0) return hash;
+var hashString = function (s) {
+  var hash = 0
+  var i
+  var chr
+  var len
+  
+  if (s === 0) return hash
   for (i = 0, len = s.length; i < len; i++) {
-    chr   = s.charCodeAt(i);
-    hash  = ((hash << 5) - hash) + chr;
-    hash |= 0; 
+    chr = s.charCodeAt(i)
+    hash = ((hash << 5) - hash) + chr
+    hash |= 0
   }
-  return hash;
-};
+  return hash
+}
 
 var formatMessage = function () {
   var args = Array.prototype.slice.call(arguments)
@@ -57,11 +61,11 @@ var TeamcityReporter = function (baseReporterDecorator) {
   var reporter = this
   var initializeBrowser = function (browser) {
     reporter.browserResults[browser.id] = {
-      name: browser.name,
-      log: [],
-      lastSuite: null,
-	    flowId: "karmaTC" + hashString(browser.name + ((new Date()).getTime())) + browser.id
-    }
+    name: browser.name,
+    log: [],
+    lastSuite: null,
+    flowId: 'karmaTC' + hashString(browser.name + ((new Date()).getTime())) + browser.id
+  }
   }
 
   this.onRunStart = function (browsers) {
@@ -117,11 +121,11 @@ var TeamcityReporter = function (baseReporterDecorator) {
     var browserResult = this.browserResults[browser.id]
     var suiteName = browser.name
     var moduleName = result.suite.join(' ')
-
+    
     if (moduleName) {
       suiteName = moduleName.concat('.', suiteName)
     }
-
+    
     var log = browserResult.log
     if (browserResult.lastSuite !== suiteName) {
       if (browserResult.lastSuite) {
@@ -137,8 +141,8 @@ var TeamcityReporter = function (baseReporterDecorator) {
   this.flushLogs = function (browserResult) {
     while (browserResult.log.length > 0) {
       var line = browserResult.log.shift()
-	    line = line.replace("flowId=''", "flowId='"+browserResult.flowId+"'");
-	  
+      line = line.replace("flowId=''", "flowId='" + browserResult.flowId + "'");
+      
       self.write(line)
       if (browserResult.log.length > 0) {
         self.write(' ')
