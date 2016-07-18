@@ -57,15 +57,15 @@ var TeamcityReporter = function (baseReporterDecorator) {
   this.TEST_END = "##teamcity[testFinished name='%s' duration='%s' flowId=''"
   this.BLOCK_OPENED = "##teamcity[blockOpened name='%s' flowId='']"
   this.BLOCK_CLOSED = "##teamcity[blockClosed name='%s' flowId='']"
- 
+  
   var reporter = this
   var initializeBrowser = function (browser) {
-    reporter.browserResults[browser.id] = {
-    name: browser.name,
-    log: [],
-    lastSuite: null,
-    flowId: 'karmaTC' + hashString(browser.name + ((new Date()).getTime())) + browser.id
-  }
+      reporter.browserResults[browser.id] = {
+      name: browser.name,
+      log: [],
+      lastSuite: null,
+      flowId: 'karmaTC' + hashString(browser.name + ((new Date()).getTime())) + browser.id
+    }
   }
 
   this.onRunStart = function (browsers) {
@@ -141,7 +141,7 @@ var TeamcityReporter = function (baseReporterDecorator) {
   this.flushLogs = function (browserResult) {
     while (browserResult.log.length > 0) {
       var line = browserResult.log.shift()
-      line = line.replace("flowId=''", "flowId='" + browserResult.flowId + "'");
+      line = line.replace("flowId=''", "flowId='" + browserResult.flowId + "'")
       
       self.write(line)
       if (browserResult.log.length > 0) {
