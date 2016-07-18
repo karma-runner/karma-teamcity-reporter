@@ -23,7 +23,7 @@ var hashString = function (s) {
   var i
   var chr
   var len
-  
+
   if (s === 0) return hash
   for (i = 0, len = s.length; i < len; i++) {
     chr = s.charCodeAt(i)
@@ -39,7 +39,7 @@ var formatMessage = function () {
   for (var i = args.length - 1; i > 0; i--) {
     args[i] = escapeMessage(args[i])
   }
-  
+
   return util.format.apply(null, args) + '\n'
 }
 
@@ -57,10 +57,10 @@ var TeamcityReporter = function (baseReporterDecorator) {
   this.TEST_END = "##teamcity[testFinished name='%s' duration='%s' flowId=''"
   this.BLOCK_OPENED = "##teamcity[blockOpened name='%s' flowId='']"
   this.BLOCK_CLOSED = "##teamcity[blockClosed name='%s' flowId='']"
-  
+
   var reporter = this
   var initializeBrowser = function (browser) {
-      reporter.browserResults[browser.id] = {
+    reporter.browserResults[browser.id] = {
       name: browser.name,
       log: [],
       lastSuite: null,
@@ -121,11 +121,11 @@ var TeamcityReporter = function (baseReporterDecorator) {
     var browserResult = this.browserResults[browser.id]
     var suiteName = browser.name
     var moduleName = result.suite.join(' ')
-    
+
     if (moduleName) {
       suiteName = moduleName.concat('.', suiteName)
     }
-    
+
     var log = browserResult.log
     if (browserResult.lastSuite !== suiteName) {
       if (browserResult.lastSuite) {
@@ -142,7 +142,7 @@ var TeamcityReporter = function (baseReporterDecorator) {
     while (browserResult.log.length > 0) {
       var line = browserResult.log.shift()
       line = line.replace("flowId=''", "flowId='" + browserResult.flowId + "'")
-      
+
       self.write(line)
       if (browserResult.log.length > 0) {
         self.write(' ')
