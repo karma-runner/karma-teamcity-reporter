@@ -54,7 +54,7 @@ var TeamcityReporter = function (baseReporterDecorator) {
   this.SUITE_END = "##teamcity[testSuiteFinished name='%s' flowId='']"
   this.TEST_START = "##teamcity[testStarted name='%s' flowId='']"
   this.TEST_FAILED = "##teamcity[testFailed name='%s' message='FAILED' details='%s' flowId='']"
-  this.TEST_END = "##teamcity[testFinished name='%s' duration='%s' flowId=''"
+  this.TEST_END = "##teamcity[testFinished name='%s' duration='%s' flowId='']"
   this.BLOCK_OPENED = "##teamcity[blockOpened name='%s' flowId='']"
   this.BLOCK_CLOSED = "##teamcity[blockClosed name='%s' flowId='']"
 

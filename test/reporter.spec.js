@@ -1,6 +1,7 @@
 var chai = require('chai')
 var expect = require('chai').expect
 var sinon = require('sinon')
+var clock
 chai.use(require('sinon-chai'))
 
 var TeamCityReporter = require('./../index')['reporter:teamcity'][1]
@@ -13,6 +14,11 @@ describe('TeamCity reporter', function () {
     reporter = new TeamCityReporter(function (instance) {
       instance.write = sinon.spy()
     })
+    clock = sinon.useFakeTimers(new Date(2011, 9, 1).getTime())
+  })
+
+  afterEach(function () {
+    clock.restore()
   })
 
   it('should produce 2 standard messages without browsers', function () {
@@ -36,16 +42,16 @@ describe('TeamCity reporter', function () {
     expect(reporter.write).to.have.been.calledWith("##teamcity[blockOpened name='JavaScript Unit Tests' flowId='']\n")
     expect(reporter.write).to.have.been.calledWith("##teamcity[blockClosed name='JavaScript Unit Tests' flowId='']\n")
     expect(reporter.write).to.have.been.calledWith(
-      "##teamcity[testSuiteStarted name='Suite 1.Mosaic']\n"
+      "##teamcity[testSuiteStarted name='Suite 1.Mosaic' flowId='karmaTC-1360717853id']\n"
     )
     expect(reporter.write).to.have.been.calledWith(
-      "##teamcity[testStarted name='SampleTest']\n"
+      "##teamcity[testStarted name='SampleTest' flowId='karmaTC-1360717853id']\n"
     )
     expect(reporter.write).to.have.been.calledWith(
-      "##teamcity[testFinished name='SampleTest' duration='2']\n"
+      "##teamcity[testFinished name='SampleTest' duration='2' flowId='karmaTC-1360717853id']\n"
     )
     expect(reporter.write).to.have.been.calledWith(
-      "##teamcity[testSuiteFinished name='Suite 1.Mosaic']\n"
+      "##teamcity[testSuiteFinished name='Suite 1.Mosaic' flowId='karmaTC-1360717853id']\n"
     )
   })
 })
