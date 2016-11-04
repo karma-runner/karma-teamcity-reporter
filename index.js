@@ -18,12 +18,28 @@ var escapeMessage = function (message) {
     .replace(/\]/g, '|]')
 }
 
+var hashString = function (s) {
+  var hash = 0
+  var i
+  var chr
+  var len
+
+  if (s === 0) return hash
+  for (i = 0, len = s.length; i < len; i++) {
+    chr = s.charCodeAt(i)
+    hash = ((hash << 5) - hash) + chr
+    hash |= 0
+  }
+  return hash
+}
+
 var formatMessage = function () {
   var args = Array.prototype.slice.call(arguments)
 
   for (var i = args.length - 1; i > 0; i--) {
     args[i] = escapeMessage(args[i])
   }
+
   return util.format.apply(null, args) + '\n'
 }
 
@@ -33,21 +49,22 @@ var TeamcityReporter = function (baseReporterDecorator) {
 
   this.adapters = [fs.writeSync.bind(fs.writeSync, 1)]
 
-  this.TEST_IGNORED = "##teamcity[testIgnored name='%s']"
-  this.SUITE_START = "##teamcity[testSuiteStarted name='%s']"
-  this.SUITE_END = "##teamcity[testSuiteFinished name='%s']"
-  this.TEST_START = "##teamcity[testStarted name='%s']"
-  this.TEST_FAILED = "##teamcity[testFailed name='%s' message='FAILED' details='%s']"
-  this.TEST_END = "##teamcity[testFinished name='%s' duration='%s']"
-  this.BLOCK_OPENED = "##teamcity[blockOpened name='%s']"
-  this.BLOCK_CLOSED = "##teamcity[blockClosed name='%s']"
+  this.TEST_IGNORED = "##teamcity[testIgnored name='%s' flowId='']"
+  this.SUITE_START = "##teamcity[testSuiteStarted name='%s' flowId='']"
+  this.SUITE_END = "##teamcity[testSuiteFinished name='%s' flowId='']"
+  this.TEST_START = "##teamcity[testStarted name='%s' flowId='']"
+  this.TEST_FAILED = "##teamcity[testFailed name='%s' message='FAILED' details='%s' flowId='']"
+  this.TEST_END = "##teamcity[testFinished name='%s' duration='%s' flowId='']"
+  this.BLOCK_OPENED = "##teamcity[blockOpened name='%s' flowId='']"
+  this.BLOCK_CLOSED = "##teamcity[blockClosed name='%s' flowId='']"
 
   var reporter = this
   var initializeBrowser = function (browser) {
     reporter.browserResults[browser.id] = {
       name: browser.name,
       log: [],
-      lastSuite: null
+      lastSuite: null,
+      flowId: 'karmaTC' + hashString(browser.name + ((new Date()).getTime())) + browser.id
     }
   }
 
@@ -124,6 +141,8 @@ var TeamcityReporter = function (baseReporterDecorator) {
   this.flushLogs = function (browserResult) {
     while (browserResult.log.length > 0) {
       var line = browserResult.log.shift()
+      line = line.replace("flowId=''", "flowId='" + browserResult.flowId + "'")
+
       self.write(line)
       if (browserResult.log.length > 0) {
         self.write(' ')
