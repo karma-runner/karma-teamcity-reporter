@@ -14,7 +14,7 @@ describe('TeamCity reporter', function () {
     reporter = new TeamCityReporter(function (instance) {
       instance.write = sinon.spy()
     })
-    clock = sinon.useFakeTimers(new Date(2011, 9, 1).getTime())
+    clock = sinon.useFakeTimers(new Date(2050, 9, 1, 0, 0, 0, 0).getTime())
   })
 
   afterEach(function () {
@@ -42,16 +42,16 @@ describe('TeamCity reporter', function () {
     expect(reporter.write).to.have.been.calledWith("##teamcity[blockOpened name='JavaScript Unit Tests' flowId='']\n")
     expect(reporter.write).to.have.been.calledWith("##teamcity[blockClosed name='JavaScript Unit Tests' flowId='']\n")
     expect(reporter.write).to.have.been.calledWith(
-      "##teamcity[testSuiteStarted name='Suite 1.Mosaic' flowId='karmaTC-1360717853id']\n"
+      "##teamcity[testSuiteStarted name='Suite 1.Mosaic' flowId='karmaTC-1448140806id']\n"
     )
     expect(reporter.write).to.have.been.calledWith(
-      "##teamcity[testStarted name='SampleTest' flowId='karmaTC-1360717853id']\n"
+      "##teamcity[testStarted name='SampleTest' flowId='karmaTC-1448140806id']\n"
     )
     expect(reporter.write).to.have.been.calledWith(
-      "##teamcity[testFinished name='SampleTest' duration='2' flowId='karmaTC-1360717853id']\n"
+      "##teamcity[testFinished name='SampleTest' duration='2' flowId='karmaTC-1448140806id']\n"
     )
     expect(reporter.write).to.have.been.calledWith(
-      "##teamcity[testSuiteFinished name='Suite 1.Mosaic' flowId='karmaTC-1360717853id']\n"
+      "##teamcity[testSuiteFinished name='Suite 1.Mosaic' flowId='karmaTC-1448140806id']\n"
     )
   })
 })
