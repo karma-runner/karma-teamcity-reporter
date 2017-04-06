@@ -22,7 +22,7 @@
     "eslint": "^2.3.0",
     "eslint-config-standard": "^5.1.0",
     "eslint-plugin-promise": "^1.1.0",
-    "eslint-plugin-standard": "^1.1.0",
+    "eslint-plugin-standard": "^3.0.1",
     "ghooks": "^1.0.3",
     "grunt": "^0.4.1",
     "grunt-bump": "^0.7.0",
