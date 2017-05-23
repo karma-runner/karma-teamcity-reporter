@@ -37,7 +37,7 @@
     "karma-mocha": "1.x || ^0.2.0",
     "load-grunt-tasks": "^3.2.0",
     "mocha": "*",
-    "sinon": "*",
+    "sinon": "2.3.1",
     "sinon-chai": "*",
     "validate-commit-msg": "^2.3.1"
   },
