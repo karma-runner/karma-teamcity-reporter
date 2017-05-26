@@ -18,7 +18,7 @@
   "author": "Eldar Djafarov<djkojb@gmail.com>",
   "dependencies": {},
   "devDependencies": {
-    "chai": "*",
+    "chai": "4.0.0",
     "eslint": "^2.3.0",
     "eslint-config-standard": "^5.1.0",
     "eslint-plugin-promise": "^1.1.0",
