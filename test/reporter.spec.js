@@ -12,7 +12,7 @@ describe('TeamCity reporter', function () {
 
   beforeEach(function () {
     reporter = new TeamCityReporter(function (instance) {
-      instance.write = sinon.spy()
+      instance.write = sinon.stub()
     })
     clock = sinon.useFakeTimers(new Date(2050, 9, 1, 0, 0, 0, 0).getTime())
   })
@@ -24,34 +24,32 @@ describe('TeamCity reporter', function () {
   it('should produce 2 standard messages without browsers', function () {
     reporter.onRunStart([])
     reporter.onRunComplete([])
-    expect(reporter.write).to.have.been.calledWith("##teamcity[blockOpened name='JavaScript Unit Tests' flowId='']\n")
-    expect(reporter.write).to.have.been.calledWith("##teamcity[blockClosed name='JavaScript Unit Tests' flowId='']\n")
+
+    expect(reporter.write.firstCall.args).to.be.eql(["##teamcity[blockOpened name='JavaScript Unit Tests' flowId='']\n"])
+    expect(reporter.write.secondCall.args).to.be.eql(["##teamcity[blockClosed name='JavaScript Unit Tests' flowId='']\n"])
   })
 
   it('should produce 2 standard messages without tests', function () {
     reporter.onRunStart([mosaic])
     reporter.onRunComplete([])
-    expect(reporter.write).to.have.been.calledWith("##teamcity[blockOpened name='JavaScript Unit Tests' flowId='']\n")
-    expect(reporter.write).to.have.been.calledWith("##teamcity[blockClosed name='JavaScript Unit Tests' flowId='']\n")
+    expect(reporter.write.firstCall.args).to.be.eql(["##teamcity[blockOpened name='JavaScript Unit Tests' flowId='']\n"])
+    expect(reporter.write.secondCall.args).to.be.eql(["##teamcity[blockClosed name='JavaScript Unit Tests' flowId='']\n"])
   })
 
   it('should produce messages with one test', function () {
     reporter.onRunStart([mosaic])
     reporter.specSuccess(mosaic, {description: 'SampleTest', time: 2, suite: ['Suite 1']})
     reporter.onRunComplete([])
-    expect(reporter.write).to.have.been.calledWith("##teamcity[blockOpened name='JavaScript Unit Tests' flowId='']\n")
-    expect(reporter.write).to.have.been.calledWith("##teamcity[blockClosed name='JavaScript Unit Tests' flowId='']\n")
-    expect(reporter.write).to.have.been.calledWith(
-      "##teamcity[testSuiteStarted name='Suite 1.Mosaic' flowId='karmaTC-1448140806id']\n"
-    )
-    expect(reporter.write).to.have.been.calledWith(
-      "##teamcity[testStarted name='SampleTest' flowId='karmaTC-1448140806id']\n"
-    )
-    expect(reporter.write).to.have.been.calledWith(
-      "##teamcity[testFinished name='SampleTest' duration='2' flowId='karmaTC-1448140806id']\n"
-    )
-    expect(reporter.write).to.have.been.calledWith(
-      "##teamcity[testSuiteFinished name='Suite 1.Mosaic' flowId='karmaTC-1448140806id']\n"
-    )
+    expect(reporter.write.args).to.be.eql([
+      [ '##teamcity[blockOpened name=\'JavaScript Unit Tests\' flowId=\'\']\n' ],
+      [ '##teamcity[testSuiteStarted name=\'Suite 1.Mosaic\' flowId=\'karmaTC-585698400id\']\n' ],
+      [ ' ' ],
+      [ '##teamcity[testStarted name=\'SampleTest\' flowId=\'karmaTC-585698400id\']\n' ],
+      [ ' ' ],
+      [ '##teamcity[testFinished name=\'SampleTest\' duration=\'2\' flowId=\'karmaTC-585698400id\']\n' ],
+      [ ' ' ],
+      [ '##teamcity[testSuiteFinished name=\'Suite 1.Mosaic\' flowId=\'karmaTC-585698400id\']\n' ],
+      [ '##teamcity[blockClosed name=\'JavaScript Unit Tests\' flowId=\'\']\n' ]
+    ])
   })
 })

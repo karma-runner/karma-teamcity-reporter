@@ -1,5 +1,8 @@
 describe('TeamCity', function () {
   it('works', function () {
-    1 + 1 === 2
+    var i = 1
+    if (1 + i !== 2) {
+      throw new Error('failed')
+    }
   })
 })
