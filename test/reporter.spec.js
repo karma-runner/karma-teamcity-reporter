@@ -42,13 +42,13 @@ describe('TeamCity reporter', function () {
     reporter.onRunComplete([])
     expect(reporter.write.args).to.be.eql([
       [ '##teamcity[blockOpened name=\'JavaScript Unit Tests\' flowId=\'\']\n' ],
-      [ '##teamcity[testSuiteStarted name=\'Suite 1.Mosaic\' flowId=\'karmaTC-585698400id\']\n' ],
+      [ '##teamcity[testSuiteStarted name=\'Suite 1.Mosaic\' flowId=\'karmaTC-1448140806id\']\n' ],
       [ ' ' ],
-      [ '##teamcity[testStarted name=\'SampleTest\' flowId=\'karmaTC-585698400id\']\n' ],
+      [ '##teamcity[testStarted name=\'SampleTest\' flowId=\'karmaTC-1448140806id\']\n' ],
       [ ' ' ],
-      [ '##teamcity[testFinished name=\'SampleTest\' duration=\'2\' flowId=\'karmaTC-585698400id\']\n' ],
+      [ '##teamcity[testFinished name=\'SampleTest\' duration=\'2\' flowId=\'karmaTC-1448140806id\']\n' ],
       [ ' ' ],
-      [ '##teamcity[testSuiteFinished name=\'Suite 1.Mosaic\' flowId=\'karmaTC-585698400id\']\n' ],
+      [ '##teamcity[testSuiteFinished name=\'Suite 1.Mosaic\' flowId=\'karmaTC-1448140806id\']\n' ],
       [ '##teamcity[blockClosed name=\'JavaScript Unit Tests\' flowId=\'\']\n' ]
     ])
   })
