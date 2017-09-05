@@ -1,6 +1,6 @@
 {
   "name": "karma-teamcity-reporter",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Karma plugin. Report results for Teamcity CI.",
   "main": "index.js",
   "scripts": {

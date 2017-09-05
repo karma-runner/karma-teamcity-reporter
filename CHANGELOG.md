@@ -1,3 +1,13 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/karma-runner/karma-teamcity-reporter/compare/v2.0.0...v1.0.1) (2017-09-05)
+
+
+### Features
+
+* add flowId to avoid unstable teamcity output ([eef641b](https://github.com/karma-runner/karma-teamcity-reporter/commit/eef641b))
+
+
+
 <a name="1.0.0"></a>
 # [1.0.0](https://github.com/karma-runner/karma-teamcity-reporter/compare/v0.2.2...v1.0.0) (2016-05-03)
 
