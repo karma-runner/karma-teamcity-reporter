@@ -7,6 +7,11 @@
 
 > Karma reporter for Teamcity CI.
 
+### TeamCity Setup 
+
+Ensure that your TeamCity project is configured to use UTF-8 stream encoding.
+See [this issue](https://github.com/karma-runner/karma-teamcity-reporter/issues/32#issuecomment-202270422) for more details.
+
 For more information on Karma see the [homepage].
 
 
