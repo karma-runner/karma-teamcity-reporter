@@ -48,7 +48,7 @@
   },
   "license": "MIT",
   "contributors": [
-    "dignifiedquire <friedel.ziegelmayer@gmail.com>",
+    "Vojta Jina <vojta.jina@gmail.com>",
     "Friedel Ziegelmayer <friedel.ziegelmayer@gmail.com>",
     "Mark Ethan Trostler <mark@zzo.com>",
     "Eldar Djafarov <djkojb@gmail.com>",
@@ -58,10 +58,11 @@
     "sarychev <dizel3d@gmail.com>",
     "Simon Nodel <simon.nodel@aquaticinformatics.com>",
     "Sahat Yalkabov <sakhat@gmail.com>",
+    "Niklas <noresjo@gmail.com>",
     "fc-franz <Franziskus1988@users.noreply.github.com>",
     "mob <mob@mikeobrien.net>",
     "nieve <nieve.goor@consumerchoices.co.uk>",
-    "Niklas <noresjo@gmail.com>",
+    "Kevin Centeno <kevcenteno@users.noreply.github.com>",
     "Amir Arad <amira@wix.com>"
   ]
 }
