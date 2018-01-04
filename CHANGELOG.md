@@ -1,3 +1,13 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/karma-runner/karma-teamcity-reporter/compare/v1.0.1...v1.1.0) (2018-01-04)
+
+
+### Bug Fixes
+
+* Remove fs.writeSync as default adapter and add TeamCity setup documentation ([#83](https://github.com/karma-runner/karma-teamcity-reporter/issues/83)) ([6390b53](https://github.com/karma-runner/karma-teamcity-reporter/commit/6390b53))
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/karma-runner/karma-teamcity-reporter/compare/v2.0.0...v1.0.1) (2017-09-05)
 
