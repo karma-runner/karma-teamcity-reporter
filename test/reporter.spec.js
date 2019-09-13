@@ -52,4 +52,24 @@ describe('TeamCity reporter', function () {
       [ '##teamcity[blockClosed name=\'JavaScript Unit Tests\' flowId=\'\']\n' ]
     ])
   })
+
+  it('should produce messages with one test and one log', function () {
+    reporter.onRunStart([mosaic])
+    reporter.onBrowserLog(mosaic, '\'simple-log\'', 'log')
+    reporter.specSuccess(mosaic, {description: 'SampleTest', time: 2, suite: ['Suite 1']})
+    reporter.onRunComplete([])
+    expect(reporter.write.args).to.be.eql([
+      [ '##teamcity[blockOpened name=\'JavaScript Unit Tests\' flowId=\'\']\n' ],
+      [ '##teamcity[testSuiteStarted name=\'Suite 1.Mosaic\' flowId=\'karmaTC-1448140806id\']\n' ],
+      [ ' ' ],
+      [ '##teamcity[testStarted name=\'SampleTest\' flowId=\'karmaTC-1448140806id\']\n' ],
+      [ ' ' ],
+      [ '##teamcity[testStdOut name=\'SampleTest\' out=\'|[log|] |\'simple-log|\'|n\' flowId=\'karmaTC-1448140806id\']\n' ],
+      [ ' ' ],
+      [ '##teamcity[testFinished name=\'SampleTest\' duration=\'2\' flowId=\'karmaTC-1448140806id\']\n' ],
+      [ ' ' ],
+      [ '##teamcity[testSuiteFinished name=\'Suite 1.Mosaic\' flowId=\'karmaTC-1448140806id\']\n' ],
+      [ '##teamcity[blockClosed name=\'JavaScript Unit Tests\' flowId=\'\']\n' ]
+    ])
+  })
 })

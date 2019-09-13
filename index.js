@@ -50,6 +50,7 @@ var TeamcityReporter = function (baseReporterDecorator) {
   this.SUITE_START = "##teamcity[testSuiteStarted name='%s' flowId='']"
   this.SUITE_END = "##teamcity[testSuiteFinished name='%s' flowId='']"
   this.TEST_START = "##teamcity[testStarted name='%s' flowId='']"
+  this.TEST_STD_OUT = "##teamcity[testStdOut name='%s' out='%s' flowId='']"
   this.TEST_FAILED = "##teamcity[testFailed name='%s' message='FAILED' details='%s' flowId='']"
   this.TEST_END = "##teamcity[testFinished name='%s' duration='%s' flowId='']"
   this.BLOCK_OPENED = "##teamcity[blockOpened name='%s' flowId='']"
@@ -60,6 +61,7 @@ var TeamcityReporter = function (baseReporterDecorator) {
     reporter.browserResults[browser.id] = {
       name: browser.name,
       log: [],
+      consoleCollector: [],
       lastSuite: null,
       flowId: 'karmaTC' + hashString(browser.name + ((new Date()).getTime())) + browser.id
     }
@@ -77,12 +79,26 @@ var TeamcityReporter = function (baseReporterDecorator) {
     initializeBrowser(browser)
   }
 
+  this.onBrowserLog = (browser, log, type) => {
+    var browserResult = this.browserResults[browser.id]
+    if (browserResult) {
+      browserResult.consoleCollector.push(`[${type}] ${log}\n`)
+    }
+  }
+
   this.specSuccess = function (browser, result) {
     var log = this.getLog(browser, result)
     var testName = result.description
 
     log.push(formatMessage(this.TEST_START, testName))
+    this.browserResults[browser.id].consoleCollector.forEach(item => {
+      log.push(
+        formatMessage(this.TEST_STD_OUT, testName, item)
+      )
+    })
     log.push(formatMessage(this.TEST_END, testName, result.time))
+
+    this.browserResults[browser.id].consoleCollector = []
   }
 
   this.specFailure = function (browser, result) {
@@ -90,8 +106,15 @@ var TeamcityReporter = function (baseReporterDecorator) {
     var testName = result.description
 
     log.push(formatMessage(this.TEST_START, testName))
+    this.browserResults[browser.id].consoleCollector.forEach(item => {
+      log.push(
+        formatMessage(this.TEST_STD_OUT, testName, item)
+      )
+    })
     log.push(formatMessage(this.TEST_FAILED, testName, result.log.join('\n\n')))
     log.push(formatMessage(this.TEST_END, testName, result.time))
+
+    this.browserResults[browser.id].consoleCollector = []
   }
 
   this.specSkipped = function (browser, result) {
