@@ -71,7 +71,7 @@ var TeamcityReporter = function (baseReporterDecorator, teamcityReporter) {
     let formattedSpecName = ''
 
     if (prependSpecIdInSpecNameEnabled) {
-        formattedSpecName += `[${id.toLocaleUpperCase()}] `
+      formattedSpecName += `[${id.toLocaleUpperCase()}] `
     }
 
     formattedSpecName += description
