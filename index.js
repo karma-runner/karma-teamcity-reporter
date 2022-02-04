@@ -42,7 +42,10 @@ var formatMessage = function () {
   return util.format.apply(null, args) + '\n'
 }
 
-var TeamcityReporter = function (baseReporterDecorator) {
+var TeamcityReporter = function (baseReporterDecorator, teamcityReporter) {
+  const prependSpecIdInSpecNameEnabled = !!(teamcityReporter && teamcityReporter.prependSpecIdInSpecNameEnabled)
+  const useSpecFullName = !!(teamcityReporter && teamcityReporter.useSpecFullName)
+
   baseReporterDecorator(this)
   var self = this
 
@@ -65,6 +68,22 @@ var TeamcityReporter = function (baseReporterDecorator) {
     }
   }
 
+  const getFormattedSpecName = ({ id, description, fullName }) => {
+    let formattedSpecName = ''
+
+    if (prependSpecIdInSpecNameEnabled) {
+      formattedSpecName += `[${id.toLocaleUpperCase()}] `
+    }
+
+    if (useSpecFullName) {
+      formattedSpecName += fullName
+    } else {
+      formattedSpecName += description
+    }
+
+    return formattedSpecName
+  }
+
   this.onRunStart = function (browsers) {
     this.write(formatMessage(this.BLOCK_OPENED, 'JavaScript Unit Tests'))
 
@@ -79,7 +98,7 @@ var TeamcityReporter = function (baseReporterDecorator) {
 
   this.specSuccess = function (browser, result) {
     var log = this.getLog(browser, result)
-    var testName = result.description
+    var testName = getFormattedSpecName(result)
 
     log.push(formatMessage(this.TEST_START, testName))
     log.push(formatMessage(this.TEST_END, testName, result.time))
@@ -87,7 +106,7 @@ var TeamcityReporter = function (baseReporterDecorator) {
 
   this.specFailure = function (browser, result) {
     var log = this.getLog(browser, result)
-    var testName = result.description
+    var testName = getFormattedSpecName(result)
 
     log.push(formatMessage(this.TEST_START, testName))
     log.push(formatMessage(this.TEST_FAILED, testName, result.log.join('\n\n')))
@@ -96,7 +115,7 @@ var TeamcityReporter = function (baseReporterDecorator) {
 
   this.specSkipped = function (browser, result) {
     var log = this.getLog(browser, result)
-    var testName = result.description
+    var testName = getFormattedSpecName(result)
 
     log.push(formatMessage(this.TEST_IGNORED, testName))
   }
@@ -148,7 +167,7 @@ var TeamcityReporter = function (baseReporterDecorator) {
   }
 }
 
-TeamcityReporter.$inject = ['baseReporterDecorator']
+TeamcityReporter.$inject = ['baseReporterDecorator', 'config.teamcityReporter']
 
 module.exports = {
   'reporter:teamcity': ['type', TeamcityReporter]
