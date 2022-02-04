@@ -44,6 +44,7 @@ var formatMessage = function () {
 
 var TeamcityReporter = function (baseReporterDecorator, teamcityReporter) {
   const prependSpecIdInSpecNameEnabled = !!(teamcityReporter && teamcityReporter.prependSpecIdInSpecNameEnabled)
+  const useSpecFullName = !!(teamcityReporter && teamcityReporter.useSpecFullName)
 
   baseReporterDecorator(this)
   var self = this
@@ -67,14 +68,18 @@ var TeamcityReporter = function (baseReporterDecorator, teamcityReporter) {
     }
   }
 
-  const getFormattedSpecName = ({ id, description }) => {
+  const getFormattedSpecName = ({ id, description, fullName }) => {
     let formattedSpecName = ''
 
     if (prependSpecIdInSpecNameEnabled) {
       formattedSpecName += `[${id.toLocaleUpperCase()}] `
     }
 
-    formattedSpecName += description
+    if (useSpecFullName) {
+      formattedSpecName += fullName
+    } else {
+      formattedSpecName += description
+    }
 
     return formattedSpecName
   }
